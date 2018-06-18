@@ -35,12 +35,19 @@ describe 'Transaction' do
       expect(transaction.amount).to eq amount
     end
 
+    it 'stores the amount when given a positive float' do
+      amount = 26.50
+      transaction = subject.new('deposit', amount)
+
+      expect(transaction.amount).to eq amount
+    end
+
     it 'throws an error when not given an integer' do
       amount = 'abc'
 
       expect {
         subject.new('deposit', amount)
-      }.to raise_error(RuntimeError, 'Not an integer')
+      }.to raise_error(RuntimeError, 'Not a number')
     end
 
     it 'throws an error when given a negative integer' do
@@ -48,7 +55,7 @@ describe 'Transaction' do
 
       expect {
         subject.new('deposit', amount)
-      }.to raise_error(RuntimeError, 'Not a positive integer')
+      }.to raise_error(RuntimeError, 'Not a positive number')
     end
   end
 

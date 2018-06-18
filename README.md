@@ -8,10 +8,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
+1. [Ruby is installed](https://www.ruby-lang.org/en/documentation/installation/)
+2. [RubyGems is installed](https://rubygems.org/pages/download)
+3. Bundler is installed:
 ```
-Give examples
+gem install bundler
 ```
 
 ### Installing
@@ -21,43 +22,33 @@ A step by step series of examples that tell you how to get a development env run
 Say what the step will be
 
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
+git clone https://github.com/benfurber/bank_ruby
+cd bank_ruby
+bundle install
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
 
 ## Run the tests
-
 ```
 rspec
 ```
-### Break down into end to end tests
 
-Explain what these tests test and why
+## To run
 
+Once cloned and in the root directory run:
 ```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-rubocop
+irb -r ./lib/account.rb
 ```
 
-## Deployment
-
-Once cloned, open the root directory and run:
+Set-up a bank account:
+```ruby
+> account = Account.new
 ```
-ruby lib/bank.rb
+
+In IRB, make a deposit:
+```ruby
+> account.deposit(amount, date)
 ```
 
 ## Built With

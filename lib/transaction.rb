@@ -21,8 +21,8 @@ class Transaction
   end
 
   def legal_amount(amount)
-    raise 'Not an integer' unless amount.is_a? Integer
-    raise 'Not a positive integer' unless amount > 0
+    raise 'Not a number' unless amount.is_a? Numeric
+    raise 'Not a positive number' unless amount > 0
 
     amount
   end
