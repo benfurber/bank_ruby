@@ -9,13 +9,13 @@ class Account
     @log = []
   end
 
-  def deposit(number)
-    deposit = Transaction.new('deposit', number)
+  def deposit(number, date = nil)
+    deposit = Transaction.new('deposit', number, date)
     @log.push(deposit)
   end
 
-  def withdraw(number)
-    withdraw = Transaction.new('withdraw', number)
+  def withdraw(number, date = nil)
+    withdraw = Transaction.new('withdraw', number, date)
     @log.push(withdraw)
     number
   end
@@ -35,10 +35,10 @@ class Account
   def statement_row(transaction)
     if transaction.transaction_type == 'deposit'
       @balance += transaction.amount
-      "#{transaction.amount} || || #{@balance}"
+      "#{transaction.date} || #{transaction.amount} || || #{@balance}"
     elsif transaction.transaction_type == 'withdraw'
       @balance -= transaction.amount
-      "|| #{transaction.amount} || #{@balance}"
+      "#{transaction.date} || || #{transaction.amount} || #{@balance}"
     end
   end
 end

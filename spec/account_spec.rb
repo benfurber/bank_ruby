@@ -56,11 +56,13 @@ describe Account do
       subject.withdraw(500)
       expect(subject.statement).to include '|| 500 || -500'
     end
+
     it 'prints details of deposits and withdraws in the right order' do
-      subject.deposit(1000)
-      subject.deposit(2000)
-      subject.withdraw(500)
-      expect(subject.statement).to eq "credit || debit || balance\n|| 500 || 2500\n2000 || || 3000\n1000 || || 1000"
+      subject.deposit(1000, '10/01/2012')
+      subject.deposit(2000, '13/01/2012')
+      subject.withdraw(500, '14/01/2012')
+      output = "credit || debit || balance\n14/01/2012 || || 500 || 2500\n13/01/2012 || 2000 || || 3000\n10/01/2012 || 1000 || || 1000"
+      expect(subject.statement).to eq output
     end
   end
 end
