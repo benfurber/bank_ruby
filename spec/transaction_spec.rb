@@ -24,7 +24,7 @@ describe 'Transaction' do
 
         expect{
           subject.new(transaction_type, 10)
-        }.to raise_error(RuntimeError)
+        }.to raise_error(RuntimeError, 'Not a legal transaction type')
       end
     end
     context '@amount' do
@@ -40,7 +40,7 @@ describe 'Transaction' do
 
         expect{
           subject.new('deposit', amount)
-        }.to raise_error(RuntimeError)
+        }.to raise_error(RuntimeError, 'Not an integer')
       end
 
       it 'throws an error when given a negative integer' do
@@ -48,7 +48,7 @@ describe 'Transaction' do
 
         expect{
           subject.new('deposit', amount)
-        }.to raise_error(RuntimeError)
+        }.to raise_error(RuntimeError, 'Not a positive integer')
       end
     end
   end

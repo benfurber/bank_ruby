@@ -12,13 +12,13 @@ class Transaction
   private
 
   def legal_transaction(transaction_type)
-    raise RuntimeError unless TRANSACTION_TYPES.include?(transaction_type)
+    raise 'Not a legal transaction type' unless TRANSACTION_TYPES.include?(transaction_type)
     transaction_type
   end
 
   def legal_amount(amount)
-    raise RuntimeError unless amount.is_a? Integer
-    raise RuntimeError unless amount > 0
+    raise 'Not an integer' unless amount.is_a? Integer
+    raise 'Not a positive integer' unless amount > 0
     amount
   end
 end
