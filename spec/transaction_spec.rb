@@ -22,11 +22,12 @@ describe 'Transaction' do
       it 'throws an error when transaction type not deposit/withdrawal' do
         transaction_type = 'random'
 
-        expect{
+        expect {
           subject.new(transaction_type, 10)
         }.to raise_error(RuntimeError, 'Not a legal transaction type')
       end
     end
+    
     context '@amount' do
       it 'adds the amount when given a positive integer' do
         amount = 50
@@ -38,7 +39,7 @@ describe 'Transaction' do
       it 'throws an error when not given an integer' do
         amount = 'abc'
 
-        expect{
+        expect {
           subject.new('deposit', amount)
         }.to raise_error(RuntimeError, 'Not an integer')
       end
@@ -46,7 +47,7 @@ describe 'Transaction' do
       it 'throws an error when given a negative integer' do
         amount = -5
 
-        expect{
+        expect {
           subject.new('deposit', amount)
         }.to raise_error(RuntimeError, 'Not a positive integer')
       end
