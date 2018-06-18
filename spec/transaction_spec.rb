@@ -59,5 +59,20 @@ describe 'Transaction' do
 
       expect(transaction.date).to eq date
     end
+
+    it "stores today's date when no date is provided" do
+      fake_todays_date = Time.new(2018, 06, 17)
+      allow(Time).to receive(:now).and_return(fake_todays_date)
+
+      transaction = subject.new('deposit', 300)
+
+      expect(transaction.date).to eq fake_todays_date.strftime("%d/%m/%Y")
+    end
+
+    it "throws an error if not provided as dd/mm/yyyy" do
+      expect {
+        subject.new('deposit', 300, '5/02/2011')
+      }.to raise_error(RuntimeError, 'Date must be in dd/mm/yyyy format as a string')
+    end
   end
 end
