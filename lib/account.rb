@@ -21,18 +21,24 @@ class Account
   end
 
   def statement
-    statement = ["credit || debit || balance"]
-    log.reverse.each { |transaction| statement.push(statement_row(transaction)) }
-    statement.join("\n")
+    statement = log.map do |transaction|
+      statement_row(transaction)
+    end
+
+    statement.push("credit || debit || balance")
+
+    statement.reverse.join("\n")
   end
 
   private
 
   def statement_row(transaction)
     if transaction.transaction_type == 'deposit'
-      "#{transaction.amount} ||"
+      @balance += transaction.amount
+      "#{transaction.amount} || || #{@balance}"
     elsif transaction.transaction_type == 'withdraw'
-      "|| #{transaction.amount}"
+      @balance -= transaction.amount
+      "|| #{transaction.amount} || #{@balance}"
     end
   end
 end

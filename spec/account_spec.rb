@@ -43,18 +43,24 @@ describe Account do
     before(:each) do
     end
 
-    it 'pretty prints the statement header' do
+    it 'prints the statement header' do
       expect(subject.statement).to include 'credit || debit || balance'
     end
 
-    it 'pretty prints details of each transaction in log' do
+    it 'prints details of each deposit' do
       subject.deposit(1000)
-      expect(subject.statement).to include '1000 ||'
+      expect(subject.statement).to include '1000 || || 1000'
     end
 
-    it 'pretty prints details of each transaction in log' do
+    it 'prints details of each withdraw' do
       subject.withdraw(500)
-      expect(subject.statement).to include '|| 500'
+      expect(subject.statement).to include '|| 500 || -500'
+    end
+    it 'prints details of deposits and withdraws in the right order' do
+      subject.deposit(1000)
+      subject.deposit(2000)
+      subject.withdraw(500)
+      expect(subject.statement).to eq "credit || debit || balance\n|| 500 || 2500\n2000 || || 3000\n1000 || || 1000"
     end
   end
 end
