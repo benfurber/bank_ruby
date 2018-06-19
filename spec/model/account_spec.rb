@@ -50,8 +50,9 @@ describe Account do
         :date => date,
       )
       allow(Transaction).to receive(:new).and_return(transaction)
+      
+      allow(subject).to receive(:log).and_return([transaction])
 
-      subject.deposit(amount)
       expect(subject.statement).to include "#{date} || #{amount}.00 || || #{amount}.00"
     end
 
@@ -65,9 +66,9 @@ describe Account do
         :date => date,
       )
       allow(Transaction).to receive(:new).and_return(transaction)
-      allow(transaction).to receive(:amount).and_return(amount)
 
-      subject.withdraw(amount)
+      allow(subject).to receive(:log).and_return([transaction])
+
       expect(subject.statement).to include "#{date} || || #{amount}.00 || -#{amount}.00"
     end
   end
