@@ -6,7 +6,7 @@ A dummy tech test built in Ruby.
 
 The task was to build a simple bank that users would access via a REPL. Users must be able to make deposits and withdrawals as well as print account statements that show each transaction with the date, amount and balance.
 
-I started by drafting the requirements into [user stories with individual acceptance criteria](https://github.com/benfurber/bank_ruby/blob/master/docs/user_stories.md) and used those stories to draft a [basic representation of how saw those stories working as a set of classes and methods](https://github.com/benfurber/bank_ruby/blob/master/docs/bank-diagram.png).
+I started by drafting the requirements into [user stories with individual acceptance criteria](https://github.com/benfurber/bank_ruby/blob/master/docs/user_stories.md) and used those stories to draft a [basic representation of how I saw those stories working as a set of classes, methods and states](https://github.com/benfurber/bank_ruby/blob/master/docs/bank-diagram.png).
 
 I followed standard TDD principles for this project by drafting tests in RSpec before coding my model, keeping an eye on my test coverage by using SimpleCov and regularly running Rubocop to check my grammar.
 
@@ -21,14 +21,14 @@ gem install bundler
 
 ### Installing
 
-```ruby
+```
 git clone https://github.com/benfurber/bank_ruby
 cd bank_ruby
 bundle install
 ```
 
 ## Run the tests
-```
+```ruby
 rspec
 ```
 
@@ -61,11 +61,11 @@ In IRB, print a statement:
 
 Full example:
 ```ruby
-account = Account.new
-account.deposit(1000, '10/01/2012')
-account.deposit(2000, '13/01/2012')
-account.withdraw(500, '14/01/2012')
-account.statement
+> account = Account.new
+> account.deposit(1000, '10/01/2012')
+> account.deposit(2000, '13/01/2012')
+> account.withdraw(500, '14/01/2012')
+> account.statement
 ```
 
 ## Built With
