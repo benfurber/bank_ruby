@@ -2,9 +2,13 @@
 
 A dummy tech test built in Ruby.
 
-## Getting Started
+## Task
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+The task was to build a simple bank that users would access via a REPL. Users must be able to make deposits and withdrawals as well as print account statements that show each transaction with the date, amount and balance.
+
+I started by drafting the requirements into [user stories with individual acceptance criteria](https://github.com/benfurber/bank_ruby/blob/master/docs/user_stories.md) and used those stories to draft a [basic representation of how saw those stories working as a set of classes and methods](https://github.com/benfurber/bank_ruby/blob/master/docs/bank-diagram.png).
+
+I followed standard TDD principles for this project by drafting tests in RSpec before coding my model, keeping an eye on my test coverage by using SimpleCov and regularly running Rubocop to check my grammar.
 
 ### Prerequisites
 
@@ -17,17 +21,11 @@ gem install bundler
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
+```ruby
 git clone https://github.com/benfurber/bank_ruby
 cd bank_ruby
 bundle install
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Run the tests
 ```
@@ -37,11 +35,11 @@ rspec
 ## To run
 
 Once cloned and in the root directory run:
-```
+```ruby
 irb -r ./lib/account.rb
 ```
 
-Set-up a bank account:
+In IRB, set-up a bank account:
 ```ruby
 > account = Account.new
 ```
@@ -49,6 +47,25 @@ Set-up a bank account:
 In IRB, make a deposit:
 ```ruby
 > account.deposit(amount, date)
+```
+
+In IRB, make a withdraw:
+```ruby
+> account.deposit(amount, date)
+```
+
+In IRB, print a statement:
+```ruby
+> account.statement
+```
+
+Full example:
+```ruby
+account = Account.new
+account.deposit(1000, '10/01/2012')
+account.deposit(2000, '13/01/2012')
+account.withdraw(500, '14/01/2012')
+account.statement
 ```
 
 ## Built With
