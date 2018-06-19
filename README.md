@@ -12,6 +12,8 @@ I started by drafting the requirements into [user stories with individual accept
 
 I followed standard TDD principles for this project by drafting tests in RSpec before coding my model, keeping an eye on my test coverage by using SimpleCov and regularly running Rubocop to check my grammar.
 
+I considered how much delegation (and thus objects) was reasonable for this project considering the scope. My first draft had two objects, one for the account and a another for transactions. After completing those two, I decided a third sense for printing the statement. This was because more complexity was needed for it than I initially thought and so it made sense to delegate that code away from Account. I did consider doing separate objects for deposits and withdrawals (sharing attributes through a module), but as only a string separates their functional difference it seemed like too much.
+
 ### Prerequisites
 
 1. [Ruby is installed](https://www.ruby-lang.org/en/documentation/installation/)
