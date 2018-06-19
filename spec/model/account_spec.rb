@@ -37,7 +37,7 @@ describe Account do
 
   context '#statement' do
     it 'prints the statement header' do
-      expect(subject.statement).to include 'credit || debit || balance'
+      expect(subject.statement).to include 'date || credit || debit || balance'
     end
 
     it 'prints details of each deposit' do
@@ -50,7 +50,7 @@ describe Account do
         :date => date,
       )
       allow(Transaction).to receive(:new).and_return(transaction)
-      
+
       allow(subject).to receive(:log).and_return([transaction])
 
       expect(subject.statement).to include "#{date} || #{amount}.00 || || #{amount}.00"

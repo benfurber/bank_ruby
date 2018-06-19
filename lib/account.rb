@@ -12,12 +12,13 @@ class Account
   def deposit(number, date = nil)
     deposit = Transaction.new('deposit', number, date)
     @log.push(deposit)
+    "#{number} deposited into account"
   end
 
   def withdraw(number, date = nil)
     withdraw = Transaction.new('withdraw', number, date)
     @log.push(withdraw)
-    number
+    "#{number} withdrawn from account"
   end
 
   def statement
@@ -25,7 +26,7 @@ class Account
       statement_row(transaction)
     end
 
-    statement.push("credit || debit || balance")
+    statement.push("date || credit || debit || balance")
 
     statement.reverse.join("\n")
   end
