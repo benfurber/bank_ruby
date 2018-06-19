@@ -14,6 +14,8 @@ I followed standard TDD principles for this project by drafting tests in RSpec b
 
 I considered how much delegation (and thus objects) was reasonable for this project considering the scope. My first draft had two objects, one for the account and a another for transactions. After completing those two, I decided a third sense for printing the statement. This was because more complexity was needed for it than I initially thought and so it made sense to delegate that code away from Account. I did consider doing separate objects for deposits and withdrawals (sharing attributes through a module), but as only a string separates their functional difference it seemed like too much.
 
+One small bonus functionality is about the date. By default the day's date is added by a transaction, but the user can choose to provide a custom date of their own in a strict dd/mm/yyyy format.
+
 ### Prerequisites
 
 1. [Ruby is installed](https://www.ruby-lang.org/en/documentation/installation/)
@@ -50,12 +52,12 @@ In IRB, set-up a bank account:
 
 In IRB, make a deposit:
 ```ruby
-> account.deposit(amount, date)
+> account.deposit(amount, optional_date)
 ```
 
 In IRB, make a withdraw:
 ```ruby
-> account.deposit(amount, date)
+> account.deposit(amount, optional_date)
 ```
 
 In IRB, print a statement:
