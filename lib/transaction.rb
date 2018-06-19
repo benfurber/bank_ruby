@@ -28,15 +28,16 @@ class Transaction
   end
 
   def legal_date(date)
-    if date === nil
+    if date.nil?
       date = Time.now
       return date.strftime("%d/%m/%Y")
     end
 
-    unless /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/.match(date)
-      # Yes, this only checks that the string is two numbers, slash, two numbers,
-      # slash four numbers. I could have used the full (leap year compliant)
-      # version but I would have just been cutting and pasting off the internet.
+    unless date =~ /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/
+      # Yes, this only checks that the string is two numbers, slash, two
+      # numbers, slash four numbers. I could have used the full (leap year
+      # compliant) version but I would have just been cutting and pasting off
+      # the internet.
       raise 'Date must be in dd/mm/yyyy format as a string'
     end
 

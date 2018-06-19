@@ -33,16 +33,17 @@ class Account
   private
 
   def statement_row(transaction)
+    amount = add_decimals(transaction.amount)
     if transaction.transaction_type == 'deposit'
       @balance += transaction.amount
-      "#{transaction.date} || #{add_decimals(transaction.amount)} || || #{add_decimals(@balance)}"
+      "#{transaction.date} || #{amount} || || #{add_decimals(@balance)}"
     elsif transaction.transaction_type == 'withdraw'
       @balance -= transaction.amount
-      "#{transaction.date} || || #{add_decimals(transaction.amount)} || #{add_decimals(@balance)}"
+      "#{transaction.date} || || #{amount} || #{add_decimals(@balance)}"
     end
   end
 
   def add_decimals(number)
-    sprintf("%.2f", number.to_f )
+    sprintf("%.2f", number.to_f)
   end
 end
