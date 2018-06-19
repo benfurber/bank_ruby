@@ -1,8 +1,6 @@
 require 'account'
 
 describe Account do
-  subject { Account.new }
-
   context '#initalize' do
     it 'balance is zero' do
       expect(subject.balance).to eq 0
@@ -13,25 +11,22 @@ describe Account do
     end
   end
 
-  context '#deposit' do
-    it 'adds a Transaction to the log' do
-      transaction = double("Transaction")
-      allow(Transaction).to receive(:new).and_return(transaction)
+  context 'Transactions' do
+    before(:each) do
+      @transaction = double("Transaction")
+      allow(Transaction).to receive(:new).and_return(@transaction)
+    end
 
+    it '#deposit adds to the log' do
       subject.deposit(50)
 
-      expect(subject.log).to include(transaction)
+      expect(subject.log).to include(@transaction)
     end
-  end
 
-  context '#withdraw' do
-    it 'adds an item to the log' do
-      transaction = double("Transaction")
-      allow(Transaction).to receive(:new).and_return(transaction)
-
+    it '#withdraw adds to the log' do
       subject.withdraw(50)
 
-      expect(subject.log).to include(transaction)
+      expect(subject.log).to include(@transaction)
     end
   end
 
