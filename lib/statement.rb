@@ -18,9 +18,7 @@ class Statement
     end
 
     statement.push("date || credit || debit || balance")
-
     statement.reverse.join("\n")
-
   end
 
   private
@@ -33,22 +31,23 @@ class Statement
     unless log.all? { |item| item.kind_of? Transaction }
       raise 'Only instances of Transaction allowed within log array'
     end
-    
+
     true
   end
 
   def statement_row(transaction)
-    amount = add_decimals(transaction.amount)
+    amount = print_decimals(transaction.amount)
+
     if transaction.transaction_type == 'deposit'
       @balance += transaction.amount
-      "#{transaction.date} || #{amount} || || #{add_decimals(@balance)}"
+      "#{transaction.date} || #{amount} || || #{print_decimals(@balance)}"
     elsif transaction.transaction_type == 'withdraw'
       @balance -= transaction.amount
-      "#{transaction.date} || || #{amount} || #{add_decimals(@balance)}"
+      "#{transaction.date} || || #{amount} || #{print_decimals(@balance)}"
     end
   end
 
-  def add_decimals(number)
+  def print_decimals(number)
     sprintf("%.2f", number.to_f)
   end
 end

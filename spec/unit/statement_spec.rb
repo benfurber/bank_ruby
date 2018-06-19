@@ -83,7 +83,7 @@ describe Statement do
     end
   end
 
-  context '#print withdrawl' do
+  context '#print withdrawal' do
     it 'prints details of each withdrawal' do
       allow(Transaction).to receive(:new).and_return(withdrawal_transaction)
       mock_valid_log
