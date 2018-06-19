@@ -36,40 +36,12 @@ describe Account do
   end
 
   context '#statement' do
-    it 'prints the statement header' do
-      expect(subject.statement).to include 'date || credit || debit || balance'
-    end
+    it 'prints the statement' do
+      printed_log = 'Statement printed'
+      statement = double('Statement', :print => printed_log)
+      allow(Statement).to receive(:new).and_return(statement)
 
-    it 'prints details of each deposit' do
-      amount = 1000
-      date = '10/10/2017'
-      transaction = double(
-        "Transaction",
-        :transaction_type => 'deposit',
-        :amount => amount,
-        :date => date,
-      )
-      allow(Transaction).to receive(:new).and_return(transaction)
-
-      allow(subject).to receive(:log).and_return([transaction])
-
-      expect(subject.statement).to include "#{date} || #{amount}.00 || || #{amount}.00"
-    end
-
-    it 'prints details of each withdraw' do
-      amount = 500
-      date = '10/10/2017'
-      transaction = double(
-        "Transaction",
-        :transaction_type => 'withdraw',
-        :amount => amount,
-        :date => date,
-      )
-      allow(Transaction).to receive(:new).and_return(transaction)
-
-      allow(subject).to receive(:log).and_return([transaction])
-
-      expect(subject.statement).to include "#{date} || || #{amount}.00 || -#{amount}.00"
+      expect(subject.statement).to include printed_log
     end
   end
 end

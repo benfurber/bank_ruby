@@ -3,21 +3,23 @@ require 'statement'
 describe Statement do
   let(:deposit_date) { '10/01/2012' }
   let(:deposit_amount) { 75 }
-  let(:deposit_transaction) { double(
-    'Transaction',
-    :transaction_type => 'deposit',
-    :amount => deposit_amount,
-    :date => deposit_date,
-  ) }
+  let(:deposit_transaction) {
+    double('Transaction',
+      :transaction_type => 'deposit',
+      :amount => deposit_amount,
+      :date => deposit_date,
+    )
+  }
 
   let(:withdrawal_date) { '10/01/2012' }
   let(:withdrawal_amount) { 75 }
-  let(:withdrawal_transaction) { double(
-    'Transaction',
-    :transaction_type => 'withdraw',
-    :amount => withdrawal_amount,
-    :date => withdrawal_date,
-  ) }
+  let(:withdrawal_transaction) {
+    double('Transaction',
+      :transaction_type => 'withdraw',
+      :amount => withdrawal_amount,
+      :date => withdrawal_date,
+    )
+  }
 
   let(:mock_valid_log) {
     allow_any_instance_of(Statement).to receive(:valid_log?).and_return(true)

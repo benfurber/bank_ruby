@@ -26,10 +26,4 @@ class Account
     statement = Statement.new(log)
     statement.print
   end
-
-  private
-
-  def add_decimals(number)
-    sprintf("%.2f", number.to_f)
-  end
 end
