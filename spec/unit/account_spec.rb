@@ -11,10 +11,6 @@ describe Account do
   let(:statement_print) { 'Statement printed' }
 
   context '#initalize' do
-    it 'balance is zero' do
-      expect(subject.balance).to eq 0
-    end
-
     it 'log is empty' do
       expect(subject.log).to be_empty
     end
@@ -24,13 +20,11 @@ describe Account do
 
     it '#deposit adds to the log' do
       subject.deposit(50)
-
       expect(subject.log).to include(transaction)
     end
 
     it '#withdraw adds to the log' do
       subject.withdraw(50)
-
       expect(subject.log).to include(transaction)
     end
   end

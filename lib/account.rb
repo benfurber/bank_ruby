@@ -6,7 +6,6 @@ class Account
   attr_reader :balance, :log
 
   def initialize(transaction_class = Transaction, statement_class = Statement)
-    @balance = 0
     @log = []
     @transaction_class = transaction_class
     @statement_class = statement_class
