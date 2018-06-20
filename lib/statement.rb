@@ -4,50 +4,63 @@ class Statement
 
   def initialize(log = nil)
     @log = log if valid_log?(log)
+    @balance = 0
   end
 
   def print
-    if log.nil?
-      return 'No transactions to print'
-    end
-
-    @balance = 0
-
-    statement = log.map do |transaction|
-      statement_row(transaction)
-    end
-
-    statement.push("date || credit || debit || balance")
-    statement.reverse.join("\n")
+    return 'No transactions to print' if log.nil?
+    statement = build_log(log)
+    print_log(statement)
   end
 
   private
 
   def valid_log?(log)
     return true if (log.nil? || log.empty?)
-
-    raise 'Log provided must be an array' unless log.kind_of? Array
-
-    unless log.all? { |item| item.kind_of? Transaction }
-      raise 'Only instances of Transaction allowed within log array'
-    end
-
+    log_an_array?(log)
+    log_only_transactions?(log)
     true
   end
 
-  def statement_row(transaction)
-    amount = print_decimals(transaction.amount)
+  def log_an_array?(log)
+    raise 'Log provided must be an array' unless log.kind_of? Array
+  end
 
-    if transaction.transaction_type == 'deposit'
-      @balance += transaction.amount
-      "#{transaction.date} || #{amount} || || #{print_decimals(@balance)}"
-    elsif transaction.transaction_type == 'withdraw'
-      @balance -= transaction.amount
-      "#{transaction.date} || || #{amount} || #{print_decimals(@balance)}"
+  def log_only_transactions?(log)
+    all_transactions = log.all? { |item| item.kind_of? Transaction }
+    raise 'Only instances of Transaction allowed in log' unless all_transactions
+  end
+
+  def build_log(log)
+    log.map do |transaction|
+      statement_row(transaction)
     end
   end
 
-  def print_decimals(number)
-    sprintf("%.2f", number.to_f)
+  def statement_row(transaction)
+    row = prepare_row(transaction)
+    @balance += (row[:deposit] - row[:withdraw])
+    print_row(row)
+  end
+
+  def prepare_row(transaction)
+    row = { date: transaction.date, deposit: 0, withdraw: 0 }
+    row[transaction.transaction_type] = transaction.amount
+    row
+  end
+
+  def print_row(row)
+    deposit = format_number(row[:deposit])
+    withdraw = format_number(row[:withdraw])
+    "#{row[:date]} ||#{deposit} ||#{withdraw} ||#{format_number(@balance)}"
+  end
+
+  def print_log(statement)
+    statement.push("date || credit || debit || balance")
+    statement.reverse.join("\n")
+  end
+
+  def format_number(number)
+    number != 0 ? " #{sprintf("%.2f", number.to_f)}" : ""
   end
 end

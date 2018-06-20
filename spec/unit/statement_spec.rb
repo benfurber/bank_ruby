@@ -5,7 +5,7 @@ describe Statement do
   let(:deposit_amount) { 75 }
   let(:deposit_transaction) {
     double('Transaction',
-      :transaction_type => 'deposit',
+      :transaction_type => :deposit,
       :amount => deposit_amount,
       :date => deposit_date,
     )
@@ -15,7 +15,7 @@ describe Statement do
   let(:withdrawal_amount) { 75 }
   let(:withdrawal_transaction) {
     double('Transaction',
-      :transaction_type => 'withdraw',
+      :transaction_type => :withdraw,
       :amount => withdrawal_amount,
       :date => withdrawal_date,
     )
@@ -52,7 +52,7 @@ describe Statement do
       log = ['random string']
       expect {
         Statement.new(log)
-      }.to raise_error(RuntimeError, 'Only instances of Transaction allowed within log array')
+      }.to raise_error(RuntimeError, 'Only instances of Transaction allowed in log')
     end
   end
 

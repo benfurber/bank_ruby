@@ -13,13 +13,13 @@ class Account
   end
 
   def deposit(number, date = nil)
-    deposit = @transaction_class.new('deposit', number, date)
+    deposit = @transaction_class.new(:deposit, number, date)
     log.push(deposit)
     "#{number} deposited into account"
   end
 
   def withdraw(number, date = nil)
-    withdraw = @transaction_class.new('withdraw', number, date)
+    withdraw = @transaction_class.new(:withdraw, number, date)
     log.push(withdraw)
     "#{number} withdrawn from account"
   end

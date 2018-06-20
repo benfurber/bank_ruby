@@ -2,7 +2,7 @@
 class Transaction
   attr_reader :transaction_type, :amount, :date
 
-  TRANSACTION_TYPES = ['deposit', 'withdraw']
+  TRANSACTION_TYPES = [:deposit, :withdraw]
 
   def initialize(transaction_type, amount, date = add_date_now)
     @transaction_type = transaction_type if valid_transaction?(transaction_type)
@@ -18,29 +18,24 @@ class Transaction
   end
 
   def valid_transaction?(transaction_type)
-    unless TRANSACTION_TYPES.include?(transaction_type)
-      raise 'Not a legal transaction type'
-    end
-
+    find_transaction = TRANSACTION_TYPES.include?(transaction_type)
+    raise 'Not a legal transaction type' unless find_transaction
     true
   end
 
   def valid_amount?(amount)
     raise 'Not a number' unless amount.is_a? Numeric
     raise 'Not a positive number' unless amount > 0
-
     true
   end
 
   def valid_date?(date)
     unless date =~ /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/
-      # Yes, this only checks that the string is two numbers, slash, two
+      # This only checks that the string is two numbers, slash, two
       # numbers, slash four numbers. I could have used the full (leap year
-      # compliant) version but I would have just been cutting and pasting off
-      # the internet.
+      # compliant) version but I would have just been cutting and pasting.
       raise 'Date must be in dd/mm/yyyy format as a string'
     end
-
     true
   end
 end
