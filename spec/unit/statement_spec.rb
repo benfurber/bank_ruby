@@ -21,7 +21,7 @@ describe Statement do
     )
   }
 
-  let(:mock_valid_log) {
+  let(:stub_valid_log) {
     allow_any_instance_of(Statement).to receive(:valid_log?).and_return(true)
   }
 
@@ -36,7 +36,7 @@ describe Statement do
     end
 
     it 'is an array of Transactions when a log is provided' do
-      mock_valid_log
+      stub_valid_log
       statement = Statement.new([deposit_transaction])
 
       expect(statement.log.last).to eq deposit_transaction
@@ -67,18 +67,16 @@ describe Statement do
   context '#print deposit' do
     before(:each) do
       allow(Transaction).to receive(:new).and_return(deposit_transaction)
-      mock_valid_log
+      stub_valid_log
     end
 
     it 'prints the statement header' do
       statement = Statement.new([deposit_transaction])
-
       expect(statement.print).to include 'date || credit || debit || balance'
     end
 
     it 'prints details of each deposit' do
       statement = Statement.new([deposit_transaction])
-
       expect(statement.print).to include "#{deposit_date} || #{deposit_amount}.00 || || #{deposit_amount}.00"
     end
   end
@@ -86,10 +84,8 @@ describe Statement do
   context '#print withdrawal' do
     it 'prints details of each withdrawal' do
       allow(Transaction).to receive(:new).and_return(withdrawal_transaction)
-      mock_valid_log
-
+      stub_valid_log
       statement = Statement.new([withdrawal_transaction])
-
       expect(statement.print).to include "#{withdrawal_date} || || #{withdrawal_amount}.00 || -#{withdrawal_amount}.00"
     end
   end
