@@ -5,10 +5,11 @@ require_relative 'statement'
 class Account
   attr_reader :balance, :log
 
-  def initialize(transaction_class = Transaction)
+  def initialize(transaction_class = Transaction, statement_class = Statement)
     @balance = 0
     @log = []
     @transaction_class = transaction_class
+    @statement_class = statement_class
   end
 
   def deposit(number, date = nil)
@@ -24,7 +25,7 @@ class Account
   end
 
   def statement
-    statement = Statement.new(log)
+    statement = @statement_class.new(log)
     statement.print
   end
 end

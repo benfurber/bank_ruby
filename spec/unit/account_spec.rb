@@ -1,10 +1,14 @@
 require 'account'
 
 describe Account do
-  subject { Account.new(transaction_class_double) }
+  subject { Account.new(transaction_class_double, statement_class_double) }
 
   let(:transaction_class_double) { double 'Transaction', new: transaction }
-  let(:transaction) { double 'TransactionInstance' }
+  let(:transaction) { double 'transaction_instance' }
+
+  let(:statement_class_double) { double 'Statement', new: statement }
+  let(:statement) { double 'statement_instance', print: statement_print }
+  let(:statement_print) { 'Statement printed' }
 
   context '#initalize' do
     it 'balance is zero' do
@@ -33,11 +37,7 @@ describe Account do
 
   context '#statement' do
     it 'prints the statement' do
-      printed_log = 'Statement printed'
-      statement = double('Statement', :print => printed_log)
-      allow(Statement).to receive(:new).and_return(statement)
-
-      expect(subject.statement).to include printed_log
+      expect(subject.statement).to include statement_print
     end
   end
 end
