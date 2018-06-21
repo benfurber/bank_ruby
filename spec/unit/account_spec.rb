@@ -10,13 +10,13 @@ describe Account do
   let(:statement) { double 'statement_instance', print: statement_print }
   let(:statement_print) { 'Statement printed' }
 
-  context '#initalize' do
+  describe '#initalize' do
     it 'log is empty' do
       expect(subject.log).to be_empty
     end
   end
 
-  context 'Transactions' do
+  describe 'Transactions' do
 
     it '#deposit adds to the log' do
       subject.deposit(50)
@@ -29,7 +29,7 @@ describe Account do
     end
   end
 
-  context '#statement' do
+  describe '#statement' do
     it 'prints the statement' do
       expect(subject.statement).to include statement_print
     end

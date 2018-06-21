@@ -19,7 +19,7 @@ describe Statement do
     )
   }
 
-  context '@log' do
+  describe '@log' do
     it 'is nil when no log is provided or an empty array' do
       statement = Statement.new
       expect(statement.log).to eq nil
@@ -31,14 +31,14 @@ describe Statement do
     end
   end
 
-  context '#print when empty' do
+  describe '#print when empty' do
     it 'a message saying so is provided' do
       statement = Statement.new
       expect(statement.print).to eq "No transactions to print"
     end
   end
 
-  context '#print deposit' do
+  describe '#print deposit' do
     it 'prints the statement header' do
       statement = Statement.new([deposit_transaction])
       expect(statement.print).to include 'date || credit || debit || balance'
@@ -50,7 +50,7 @@ describe Statement do
     end
   end
 
-  context '#print withdrawal' do
+  describe '#print withdrawal' do
     it 'prints details of each withdrawal' do
       statement = Statement.new([withdrawal_transaction])
       expect(statement.print).to include "#{withdrawal_date} || || #{withdrawal_amount}.00 || -#{withdrawal_amount}.00"

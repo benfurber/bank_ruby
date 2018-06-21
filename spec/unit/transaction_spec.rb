@@ -37,7 +37,7 @@ describe 'Transaction' do
     end
   end
 
-  context '@date' do
+  describe '@date' do
     it 'stores the date when provided' do
       date = "14/01/2012"
       transaction = subject.new({}, date)
