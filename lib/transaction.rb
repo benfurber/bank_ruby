@@ -1,12 +1,9 @@
 # Transaction class created by Account
 class Transaction
-  attr_reader :transaction_type, :amount, :date
-
-  TRANSACTION_TYPES = [:deposit, :withdraw]
-
-  def initialize(transaction_type, amount, date = add_date_now)
-    @transaction_type = transaction_type if valid_transaction?(transaction_type)
-    @amount = amount if valid_amount?(amount)
+  attr_reader :values, :date
+  
+  def initialize(values, date = add_date_now)
+    @values = values
     @date = date if valid_date?(date)
   end
 
@@ -15,12 +12,6 @@ class Transaction
   def add_date_now
     date = Time.now
     return date.strftime("%d/%m/%Y")
-  end
-
-  def valid_transaction?(transaction_type)
-    find_transaction = TRANSACTION_TYPES.include?(transaction_type)
-    raise 'Not a legal transaction type' unless find_transaction
-    true
   end
 
   def valid_amount?(amount)
