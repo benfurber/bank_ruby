@@ -29,7 +29,6 @@ describe Statement do
 
     it 'is an array of Transactions when a log is provided' do
       statement = Statement.new([deposit_transaction])
-
       expect(statement.log.last).to eq deposit_transaction
     end
 
@@ -43,7 +42,6 @@ describe Statement do
   context '#print when empty' do
     it 'a message saying so is provided' do
       statement = Statement.new
-
       expect(statement.print).to eq "No transactions to print"
     end
   end
