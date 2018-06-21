@@ -20,25 +20,19 @@ class Statement
   end
 
   def create_statement_row(transaction)
-    row = prepare_row(transaction)
-    recalculate_balance(row)
-    print_row(row)
+    recalculate_balance(transaction)
+    print_row(transaction)
   end
 
-  def prepare_row(transaction)
-    row = { date: transaction.date, deposit: 0, withdraw: 0 }
-    row[transaction.transaction_type] = transaction.amount
-    row
+  def recalculate_balance(transaction)
+    @balance += (transaction.values[:deposit] - transaction.values[:withdraw])
   end
 
-  def recalculate_balance(row)
-    @balance += (row[:deposit] - row[:withdraw])
-  end
-
-  def print_row(row)
-    deposit = format_number(row[:deposit])
-    withdraw = format_number(row[:withdraw])
-    "#{row[:date]} ||#{deposit} ||#{withdraw} ||#{format_number(@balance)}"
+  def print_row(transaction)
+    date = transaction.date
+    deposit = format_number(transaction.values[:deposit])
+    withdraw = format_number(transaction.values[:withdraw])
+    "#{date} ||#{deposit} ||#{withdraw} ||#{format_number(@balance)}"
   end
 
   def print_log(statement)
