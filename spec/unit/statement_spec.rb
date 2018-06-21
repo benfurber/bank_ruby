@@ -31,12 +31,6 @@ describe Statement do
       statement = Statement.new([deposit_transaction])
       expect(statement.log.last).to eq deposit_transaction
     end
-
-    it 'throws an error when not provided an array' do
-      expect {
-        Statement.new('random string')
-      }.to raise_error(RuntimeError, 'Log provided must be an array')
-    end
   end
 
   context '#print when empty' do

@@ -3,7 +3,7 @@ class Statement
   attr_reader :log
 
   def initialize(log = nil)
-    @log = log if valid_log?(log)
+    @log = log
     @balance = 0
   end
 
@@ -14,16 +14,6 @@ class Statement
   end
 
   private
-
-  def valid_log?(log)
-    return true if (log.nil? || log.empty?)
-    log_an_array?(log)
-    true
-  end
-
-  def log_an_array?(log)
-    raise 'Log provided must be an array' unless log.kind_of? Array
-  end
 
   def build_log(log)
     log.map { |transaction| create_statement_row(transaction) }
