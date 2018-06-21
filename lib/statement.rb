@@ -18,17 +18,11 @@ class Statement
   def valid_log?(log)
     return true if (log.nil? || log.empty?)
     log_an_array?(log)
-    log_only_transactions?(log)
     true
   end
 
   def log_an_array?(log)
     raise 'Log provided must be an array' unless log.kind_of? Array
-  end
-
-  def log_only_transactions?(log)
-    all_transactions = log.all? { |item| item.kind_of? Transaction }
-    raise 'Only instances of Transaction allowed in log' unless all_transactions
   end
 
   def build_log(log)

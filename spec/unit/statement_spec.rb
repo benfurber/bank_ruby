@@ -21,22 +21,13 @@ describe Statement do
     )
   }
 
-  let(:stub_valid_log) {
-    allow_any_instance_of(Statement).to receive(:valid_log?).and_return(true)
-  }
-
   context '@log' do
-    before(:each) do
-      allow(Transaction).to receive(:new).and_return(deposit_transaction)
-    end
-
     it 'is nil when no log is provided or an empty array' do
       statement = Statement.new
       expect(statement.log).to eq nil
     end
 
     it 'is an array of Transactions when a log is provided' do
-      stub_valid_log
       statement = Statement.new([deposit_transaction])
 
       expect(statement.log.last).to eq deposit_transaction
@@ -46,13 +37,6 @@ describe Statement do
       expect {
         Statement.new('random string')
       }.to raise_error(RuntimeError, 'Log provided must be an array')
-    end
-
-    it 'throws an error when array contains more than instances of Transaction' do
-      log = ['random string']
-      expect {
-        Statement.new(log)
-      }.to raise_error(RuntimeError, 'Only instances of Transaction allowed in log')
     end
   end
 
@@ -65,11 +49,6 @@ describe Statement do
   end
 
   context '#print deposit' do
-    before(:each) do
-      allow(Transaction).to receive(:new).and_return(deposit_transaction)
-      stub_valid_log
-    end
-
     it 'prints the statement header' do
       statement = Statement.new([deposit_transaction])
       expect(statement.print).to include 'date || credit || debit || balance'
@@ -83,8 +62,6 @@ describe Statement do
 
   context '#print withdrawal' do
     it 'prints details of each withdrawal' do
-      allow(Transaction).to receive(:new).and_return(withdrawal_transaction)
-      stub_valid_log
       statement = Statement.new([withdrawal_transaction])
       expect(statement.print).to include "#{withdrawal_date} || || #{withdrawal_amount}.00 || -#{withdrawal_amount}.00"
     end
