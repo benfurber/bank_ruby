@@ -26,14 +26,12 @@ class Statement
   end
 
   def build_log(log)
-    log.map do |transaction|
-      statement_row(transaction)
-    end
+    log.map { |transaction| create_statement_row(transaction) }
   end
 
-  def statement_row(transaction)
+  def create_statement_row(transaction)
     row = prepare_row(transaction)
-    @balance += (row[:deposit] - row[:withdraw])
+    recalculate_balance(row)
     print_row(row)
   end
 
@@ -41,6 +39,10 @@ class Statement
     row = { date: transaction.date, deposit: 0, withdraw: 0 }
     row[transaction.transaction_type] = transaction.amount
     row
+  end
+
+  def recalculate_balance(row)
+    @balance += (row[:deposit] - row[:withdraw])
   end
 
   def print_row(row)
