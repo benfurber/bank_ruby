@@ -1,7 +1,7 @@
 # Transaction class created by Account
 class Transaction
   attr_reader :values, :date
-  
+
   def initialize(values, date = add_date_now)
     @values = values
     @date = date if valid_date?(date)
@@ -12,12 +12,6 @@ class Transaction
   def add_date_now
     date = Time.now
     return date.strftime("%d/%m/%Y")
-  end
-
-  def valid_amount?(amount)
-    raise 'Not a number' unless amount.is_a? Numeric
-    raise 'Not a positive number' unless amount > 0
-    true
   end
 
   def valid_date?(date)
