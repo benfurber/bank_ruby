@@ -89,7 +89,3 @@ This is just a dummy tech test I was doing so I really shouldn't accept any cont
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## Acknowledgments
-
-* To my fearless coach for this project, Eddie
